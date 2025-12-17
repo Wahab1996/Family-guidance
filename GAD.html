@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقياس اضطراب القلق العام GAD-7</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1, h2 { text-align: center; color: #333; }
+        form { background: #f9f9f9; padding: 20px; border-radius: 10px; }
+        label { display: block; margin: 15px 0; font-weight: bold; }
+        .options { display: flex; gap: 10px; margin-top: 5px; }
+        .option { flex: 1; text-align: center; padding: 10px; background: white; border: 2px solid #ddd; border-radius: 5px; cursor: pointer; }
+        .option.selected { background: #4CAF50; color: white; border-color: #4CAF50; }
+        button { background: #2196F3; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; width: 100%; margin-top: 20px; }
+        button:hover { background: #1976D2; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 5px; text-align: center; font-weight: bold; display: none; }
+        .minimal { background: #d4edda; color: #155724; }
+        .mild { background: #fff3cd; color: #856404; }
+        .moderate { background: #f8d7da; color: #721c24; }
+        .severe { background: #f5c6cb; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>مقياس اضطراب القلق العام (GAD-7)</h1>
+    <p style="text-align: center;">خلال الأسبوعين الماضيين، كم مرة أزعجتك المشاكل التالية؟</p>
+
+    <form id="gadForm">
+        <!-- السؤال 1 -->
+        <label>السؤال 1: الشعور بالتوتر، العصبية أو القلق</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q1" id="q1">
+
+        <!-- السؤال 2 -->
+        <label>السؤال 2: عدم القدرة على إيقاف أو التحكم في القلق</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q2" id="q2">
+
+        <!-- السؤال 3 -->
+        <label>السؤال 3: القلق الزائد حول أشياء مختلفة</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q3" id="q3">
+
+        <!-- السؤال 4 -->
+        <label>السؤال 4: صعوبة في الاسترخاء</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q4" id="q4">
+
+        <!-- السؤال 5 -->
+        <label>السؤال 5: صعوبة في الجلوس بهدوء بسبب القلق أو التململ</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q5" id="q5">
+
+        <!-- السؤال 6 -->
+        <label>السؤال 6: الانزعاج أو الاستثارة بسهولة</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q6" id="q6">
+
+        <!-- السؤال 7 -->
+        <label>السؤال 7: الشعور بالخوف كما لو أن شيئاً سيئاً للغاية قد يحدث</label>
+        <div class="options">
+            <div class="option" data-score="0">أبداً (0)</div>
+            <div class="option" data-score="1">عدة أيام (1)</div>
+            <div class="option" data-score="2">أكثر من نصف الأيام (2)</div>
+            <div class="option" data-score="3">تقريباً كل يوم (3)</div>
+        </div>
+        <input type="hidden" name="q7" id="q7">
+
+        <button type="submit">احسب النتيجة</button>
+    </form>
+
+    <div id="result"></div>
+
+    <div style="margin-top: 30px; font-size: 14px; text-align: center;">
+        <h2>تفسير النتائج</h2>
+        <ul style="text-align: right; max-width: 400px; margin: 0 auto;">
+            <li>0–4: لا يوجد قلق أو قلق طفيف جداً</li>
+            <li>5–9: قلق خفيف</li>
+            <li>10–14: قلق متوسط (يفضّل التقييم السريري)</li>
+            <li>15–21: قلق شديد (يُنصح بالتقييم والمتابعة المتخصصة)</li>
+        </ul>
+    </div>
+
+    <script>
+        // اختيار الخيارات وتخزين الدرجة
+        document.querySelectorAll(".option").forEach(opt => {
+            opt.addEventListener("click", function() {
+                const options = this.parentElement.querySelectorAll(".option");
+                options.forEach(o => o.classList.remove("selected"));
+                this.classList.add("selected");
+                this.parentElement.nextElementSibling.value = this.dataset.score;
+            });
+        });
+
+        // حساب النتيجة وتفسيرها
+        document.getElementById("gadForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            let total = 0;
+            for (let i = 1; i <= 7; i++) {
+                total += parseInt(document.getElementById("q" + i).value) || 0;
+            }
+            const result = document.getElementById("result");
+            result.style.display = "block";
+            let interp;
+            if (total <= 4) {
+                interp = "لا يوجد قلق أو قلق طفيف جداً";
+                result.className = "minimal";
+            } else if (total <= 9) {
+                interp = "قلق خفيف";
+                result.className = "mild";
+            } else if (total <= 14) {
+                interp = "قلق متوسط";
+                result.className = "moderate";
+            } else {
+                interp = "قلق شديد";
+                result.className = "severe";
+            }
+            result.innerHTML = "النتيجة الإجمالية: " + total + "/21<br>" + interp;
+        });
+    </script>
+</body>
+</html>
