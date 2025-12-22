@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Guidance Secure DB</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Orbitron', monospace; 
+            background: #000; 
+            color: #00ff00; 
+            overflow: hidden; 
+            height: 100vh; 
+        }
+        canvas { position: fixed; top: 0; left: 0; z-index: 1; }
+        .login-container { 
+            position: absolute; z-index: 10; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); width: 400px; 
+            background: rgba(0,0,0,0.9); padding: 40px; 
+            border: 2px solid #00ff00; border-radius: 10px; 
+            box-shadow: 0 0 30px #00ff00; text-align: center;
+        }
+        .login-container h1 { font-size: 2.5em; margin-bottom: 20px; text-shadow: 0 0 10px #00ff00; }
+        input[type="password"] { 
+            width: 100%; padding: 15px; margin: 20px 0; 
+            background: #111; border: 1px solid #00ff00; 
+            color: #00ff00; font-family: inherit; font-size: 1.2em;
+            text-align: center; border-radius: 5px;
+        }
+        button { 
+            width: 100%; padding: 15px; background: #00ff00; 
+            color: #000; border: none; font-family: inherit; 
+            font-size: 1.2em; font-weight: 700; cursor: pointer;
+            border-radius: 5px; transition: all 0.3s;
+        }
+        button:hover { background: #00cc00; box-shadow: 0 0 20px #00ff00; }
+        .dashboard { display: none; position: absolute; z-index: 20; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1200px; max-height: 90vh; overflow-y: auto; background: rgba(0,0,0,0.95); padding: 30px; border: 2px solid #00ff00; border-radius: 15px; box-shadow: 0 0 50px #00ff00; }
+        .section { margin-bottom: 30px; padding: 20px; border-left: 4px solid #00ff00; background: rgba(0,255,0,0.05); }
+        .section h2 { color: #00ff00; font-size: 1.8em; margin-bottom: 15px; text-shadow: 0 0 5px #00ff00; }
+        .topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+        .topic { padding: 15px; background: rgba(0,0,0,0.5); border-radius: 8px; cursor: pointer; transition: all 0.3s; border-right: 3px solid #00ff00; }
+        .topic:hover { background: rgba(0,255,0,0.1); box-shadow: 0 0 15px #00ff00; }
+        .close-btn { position: fixed; top: 20px; right: 20px; background: #ff0000; color: #fff; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; z-index: 30; }
+        .error { color: #ff0000; margin-top: 10px; display: none; }
+        @media (max-width: 768px) { .login-container, .dashboard { width: 95%; padding: 20px; } }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <div class="login-container" id="login">
+        <h1>🔒 FAMILY GUIDANCE DB</h1>
+        <p>Enter Secure Access Code</p>
+        <input type="password" id="password" placeholder="Access Code Required">
+        <button onclick="checkPassword()">ACCESS TERMINAL</button>
+        <div class="error" id="error">ACCESS DENIED - Try Again</div>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <button class="close-btn" onclick="logout()">EXIT</button>
+        <h1>🩺 Family Medicine Database 2025</h1>
+        <p>Personal Notes & Summaries - R1 Resident Riyadh</p>
+        
+        <div class="section">
+            <h2>📋 Patient History & Templates</h2>
+            <div class="topics">
+                <div class="topic">Walk-in History (10min)</div>
+                <div class="topic">Follow-up Chronic</div>
+                <div class="topic">Pediatric Well-Child</div>
+                <div class="topic">Prenatal History</div>
+                <div class="topic">Geriatric Assessment</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🩺 Common Conditions</h2>
+            <div class="topics">
+                <div class="topic">Hypertension Management</div>
+                <div class="topic">Diabetes ADA 2025</div>
+                <div class="topic">Hypo/Hyperthyroidism</div>
+                <div class="topic">Asthma/GINA Updates</div>
+                <div class="topic">Shingles (Herpes Zoster)</div>
+                <div class="topic">GAD & Depression PHQ-9</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Scores & Criteria</h2>
+            <div class="topics">
+                <div class="topic">Centor Strep Score</div>
+                <div class="topic">Wells DVT/PE</div>
+                <div class="topic">Apgar Score Calculator</div>
+                <div class="topic">GAD-7 Calculator</div>
+                <div class="topic">CHA2DS2-VASc</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🩸 Pediatrics</h2>
+            <div class="topics">
+                <div class="topic">Vaccination Schedule KSA</div>
+                <div class="topic">Growth Charts</div>
+                <div class="topic">Fever in Children</div>
+                <div class="topic">Otitis Media</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Guidelines Quick Access</h2>
+            <div class="topics">
+                <div class="topic">UpToDate Family Med</div>
+                <div class="topic">AMBOSS Primary Care</div>
+                <div class="topic">Saudi MOH Protocols</div>
+                <div class="topic">Raqeem eHR Templates</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Background Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const chars = '01家族医學أسرةドクターMEDICINEサウジ';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0,0,0,0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = `${fontSize}px monospace`;
+            drops.forEach((y, i) => {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(drawMatrix, 50);
+
+        // Password Protection
+        const correctPassword = 'family2025';
+        function checkPassword() {
+            const input = document.getElementById('password').value;
+            if (input === correctPassword) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                document.getElementById('error').style.display = 'block';
+                setTimeout(() => document.getElementById('error').style.display = 'none', 2000);
+            }
+        }
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function logout() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
+            document.getElementById('password').value = '';
+        }
+
+        // Responsive
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
